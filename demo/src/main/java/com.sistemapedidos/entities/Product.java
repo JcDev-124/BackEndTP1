@@ -32,7 +32,7 @@ public class Product implements Serializable{
 	private Double price;
 	private String imgUrl;
 	
-	
+	//Relacionamento
 	@ManyToMany
 	@JoinTable(name = "tb_product_category",
 	joinColumns = @JoinColumn(name = "product_id"),
