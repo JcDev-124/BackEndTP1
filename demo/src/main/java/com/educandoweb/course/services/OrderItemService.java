@@ -21,7 +21,11 @@ public class OrderItemService {
 	public OrderItem findById(Long id) {
 		Optional<OrderItem> obj = repository.findById(id);
 		return obj.get();
-		
+
+	}
+
+	public void save(OrderItem item){
+		repository.save(item);
 	}
 	
 	
