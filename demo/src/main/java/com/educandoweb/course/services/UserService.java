@@ -31,18 +31,26 @@ public class UserService {
 	}
 
 	public User insert(User obj) {
+		if(obj == null)
+			throw new DataBaseException("Objeto nulo");
+
+		Optional<User> user = repository.findById(obj.getId());
+
+		if(user != null)
+			throw new DataBaseException("Usuario ja existe");
+
 		return repository.save(obj);
 
 	}
 
-	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
+	public boolean delete(Long id) {
+		Optional<User> user = repository.findById(id);
+
+		if(user == null)
 			throw new ResourceNotFoundException(id);
-		} catch (DataIntegrityViolationException e) {
-			throw new DataBaseException(e.getMessage());
-		}
+
+		repository.deleteById(id);
+		return true;
 	}
 
 	public User update(Long id, User obj) {
